@@ -12,17 +12,22 @@ namespace API_Pro_GUI_Tests.Tests
     [TestFixture]
     public class TestBase
     {
-        private IWebDriver driver;
-        private StringBuilder verificationErrors;
-        private string baseURL;
-        private bool acceptNextAlert = true;
+        public IWebDriver Driver;
+        private StringBuilder _verificationErrors;
+        private string _baseUrl;
+        private bool _acceptNextAlert = true;
 
         [SetUp]
         public void SetupTest()
         {
-            driver = new ChromeDriver();
-            baseURL = "http://qa.apipro.pp.ciklum.com/";
-            verificationErrors = new StringBuilder();
+            Driver = new ChromeDriver();
+            _baseUrl = "http://qa.apipro.pp.ciklum.com/";
+            _verificationErrors = new StringBuilder();
+        }
+
+        public void LoginPage()
+        {
+            
         }
 
         [TearDown]
@@ -30,39 +35,51 @@ namespace API_Pro_GUI_Tests.Tests
         {
             try
             {
-                driver.Quit();
+                Driver.Quit();
             }
             catch (Exception)
             {
                 // Ignore errors if unable to close the browser
             }
-            Assert.AreEqual("", verificationErrors.ToString());
+            Assert.AreEqual("", _verificationErrors.ToString());
         }
 
-        [Test]
-        public void TheUntitledTest()
-        {
-            //Login
-            driver.Navigate().GoToUrl(baseURL + "/");
-            driver.FindElement(By.Id("ext-47-inputEl")).Clear();
-            driver.FindElement(By.Id("ext-47-inputEl")).SendKeys("");
-            driver.FindElement(By.Id("ext-47-inputEl")).Clear();
-            driver.FindElement(By.Id("ext-47-inputEl")).SendKeys("epl");
-            driver.FindElement(By.XPath("//td[@id='ext-element-39']/div/div")).Click();
-            //Main menu - OpenPositionTab
-            driver.FindElement(By.XPath("//td[@id='ext-element-46']/div/div[2]")).Click();
-            driver.FindElement(By.XPath("//table[@id='treeview-1088-record-51']/tbody/tr/td/div/span")).Click();
-            driver.FindElement(By.Id("usersection-user-1072-btnEl")).Click();
-            // 
-            driver.FindElement(By.Id("menucheckitem-1077-textEl")).Click();
-            driver.FindElement(By.Id("usersection-user-1072-btnEl")).Click();
-            driver.FindElement(By.Id("menuitem-1079-textEl")).Click();
+        public void Login()
+        { 
+            LoginPage("epl");
+            OpenPositionTab();
+            Logout();
         }
+
+        private void Logout()
+        {
+            Driver.FindElement(By.Id("usersection-user-1072-btnEl")).Click();
+            Driver.FindElement(By.Id("menuitem-1079-textEl")).Click();
+        }
+
+        private void OpenPositionTab()
+        {
+            Driver.FindElement(By.XPath("//td[@id='ext-element-46']/div/div[2]")).Click();
+            Driver.FindElement(By.XPath("//table[@id='treeview-1088-record-51']/tbody/tr/td/div/span")).Click();
+            Driver.FindElement(By.Id("usersection-user-1072-btnEl")).Click();
+            Driver.FindElement(By.Id("menucheckitem-1077-textEl")).Click();
+        }
+
+        private void LoginPage(string username)
+        {
+            Driver.Navigate().GoToUrl(_baseUrl + "/");
+            Driver.FindElement(By.Id("ext-47-inputEl")).Clear();
+            Driver.FindElement(By.Id("ext-47-inputEl")).SendKeys("");
+            Driver.FindElement(By.Id("ext-47-inputEl")).Clear();
+            Driver.FindElement(By.Id("ext-47-inputEl")).SendKeys("username");
+            Driver.FindElement(By.XPath("//td[@id='ext-element-39']/div/div")).Click();
+        }
+
         private bool IsElementPresent(By by)
         {
             try
             {
-                driver.FindElement(by);
+                Driver.FindElement(by);
                 return true;
             }
             catch (NoSuchElementException)
@@ -75,7 +92,7 @@ namespace API_Pro_GUI_Tests.Tests
         {
             try
             {
-                driver.SwitchTo().Alert();
+                Driver.SwitchTo().Alert();
                 return true;
             }
             catch (NoAlertPresentException)
@@ -88,9 +105,9 @@ namespace API_Pro_GUI_Tests.Tests
         {
             try
             {
-                IAlert alert = driver.SwitchTo().Alert();
+                IAlert alert = Driver.SwitchTo().Alert();
                 string alertText = alert.Text;
-                if (acceptNextAlert)
+                if (_acceptNextAlert)
                 {
                     alert.Accept();
                 }
@@ -102,7 +119,7 @@ namespace API_Pro_GUI_Tests.Tests
             }
             finally
             {
-                acceptNextAlert = true;
+                _acceptNextAlert = true;
             }
         }
     }

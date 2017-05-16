@@ -18,5 +18,11 @@ namespace API_Pro_GUI_Tests.Tests
               
         }
 
+        [Test]
+        public void Logout()
+        {
+        
+        }
+
     }
 }
