@@ -13,14 +13,14 @@ namespace API_Pro_GUI_Tests.Component
 
         public Loader(IWebDriver webDriver) : base(webDriver) {}
 
-        public override bool IsRendered()
+        public override bool IsReady()
         {
             return WebDriver.FindElements(_selector).Count != 0;
         }
 
         public bool IsVisible()
         {
-            if (!IsRendered())
+            if (!IsReady())
                 return false;
 
             var element = WebDriver.FindElement(_selector);

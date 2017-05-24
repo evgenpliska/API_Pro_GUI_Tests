@@ -6,7 +6,7 @@ namespace API_Pro_GUI_Tests.Component
     {
         protected IWebDriver WebDriver { get; }
 
-        public abstract bool IsRendered();
+        public abstract bool IsReady();
 
         protected Component(IWebDriver webDriver)
         {

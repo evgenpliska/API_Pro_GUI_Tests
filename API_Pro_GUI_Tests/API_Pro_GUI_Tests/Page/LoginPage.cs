@@ -16,7 +16,7 @@ namespace API_Pro_GUI_Tests.Page
 
         public override bool IsReady()
         {
-            return LoginForm.IsRendered() && !Loader.IsVisible();
+            return LoginForm.IsReady() && !Loader.IsVisible();
         }
     }
 }
