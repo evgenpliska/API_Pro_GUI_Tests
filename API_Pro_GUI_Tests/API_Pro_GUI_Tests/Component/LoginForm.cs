@@ -48,6 +48,7 @@ namespace API_Pro_GUI_Tests.Component
             languageField.Click();
         }
 
+
         public void ClickOnCheckBox()
         {
             WebDriver.FindElement(By.Name("rememberme")).Click();

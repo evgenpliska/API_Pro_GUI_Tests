@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component\Component.cs" />
+    <Compile Include="Component\ErroreLoginMessage.cs" />
     <Compile Include="Component\Loader.cs" />
     <Compile Include="Component\LoginForm.cs" />
+    <Compile Include="Component\LogoAPIPRO.cs" />
     <Compile Include="Helpers\WaitHelper.cs" />
     <Compile Include="Page\LoginPage.cs" />
     <Compile Include="Page\MainPage.cs" />

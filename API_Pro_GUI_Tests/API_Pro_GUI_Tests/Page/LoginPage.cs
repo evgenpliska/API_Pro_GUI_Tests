@@ -9,14 +9,23 @@ namespace API_Pro_GUI_Tests.Page
 
         public LoginForm LoginForm { get; }
 
+        public ErroreLoginMessage ErroreLoginMessage { get; }
+
+        public LogoApipro LogoApipro { get; }
+
         public LoginPage(IWebDriver webDriver) : base(LoginPageUrl, webDriver)
         {
+            LogoApipro = new LogoApipro(webDriver);
             LoginForm = new LoginForm(webDriver);
+            ErroreLoginMessage = new ErroreLoginMessage(webDriver);
         }
 
         public override bool IsReady()
         {
             return LoginForm.IsReady() && !Loader.IsVisible();
         }
+
+        
+
     }
 }
